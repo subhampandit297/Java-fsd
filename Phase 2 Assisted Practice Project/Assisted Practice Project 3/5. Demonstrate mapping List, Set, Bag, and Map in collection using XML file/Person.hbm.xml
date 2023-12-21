@@ -1,0 +1,39 @@
+<!-- Person.hbm.xml -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.Person" table="person">
+        <id name="id" type="int">
+            <generator class="native"/>
+        </id>
+        <property name="name" />
+
+        <!-- List mapping -->
+        <list name="emails" table="person_emails">
+            <key column="person_id"/>
+            <index column="email_index"/>
+            <element column="email" type="string"/>
+        </list>
+
+        <!-- Set mapping -->
+        <set name="addresses" table="person_addresses">
+            <key column="person_id"/>
+            <many-to-many column="address_id" class="com.Address"/>
+        </set>
+
+        <!-- Bag mapping -->
+        <bag name="phoneNumbers" table="person_phonenumbers">
+            <key column="person_id"/>
+            <element column="phone_number" type="string"/>
+        </bag>
+
+        <!-- Map mapping -->
+        <map name="properties" table="person_properties">
+            <key column="person_id"/>
+            <index column="property_key"/>
+            <element column="property_value" type="string"/>
+        </map>
+
+    </class>
+</hibernate-mapping>
